@@ -1,0 +1,141 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: refdoc-webapp-pipeline  
+spec:
+  description: Pipeline gets code, scans it, builds image, pushes it to registry, and deploys app
+  resources:
+    - name: git-url
+      type: git
+    - name: runtime-image
+      type: image
+    
+  workspaces:
+    - name: shared-workspace
+      description: shared directory used store source code copied and scan it and build-image to retrieve it and build the image
+    - name: sonar-settings
+      description: an empty directory specifcallly used by the sonarcube task
+
+  params:
+    - name: git-revision
+      type: string
+      description: reqiured parameter for the git-source-code task passed by the pipeline run
+    - name: TLSVERIFY
+      type: string
+      description: reqiured parameter for the build-image task passed by the pipeline run
+    - name: SONAR_HOST_URL
+      type: string
+      description: reqiured parameter for url of the SONAR Host
+    - name: SONAR_PROJECT_KEY
+      type: string
+      description: reqiured parameter SONAR Project Key
+    - name: templateFileName
+      type: string
+      description: required path of the deployment template within your source code
+    - name: appName
+      type: string      
+    - name: appGroup
+      type: string  
+    - name: quay-io-account
+      type: string      
+    - name: quay-io-repository
+      type: string 
+    - name: quay-io-image-tag-name
+      type: string      
+
+  tasks:
+    - name: 1-git-source-code
+      taskRef:
+        name: git-clone-netcore
+        kind: Task
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+      params:
+        - name: url
+          value: ""
+        - name: subdirectory
+          value: ""
+        - name : deleteExisting
+          value: "true"
+        - name : revision
+          value: $(params.git-revision)          
+      resources:
+          inputs:
+          - name: source-url
+            resource: git-url 
+
+
+    - name: 2-code-analysis
+      taskRef:
+       name: sonarqube-scanner
+       kind: task
+      workspaces:
+      - name: source-dir
+        workspace: shared-workspace
+      - name: sonar-settings
+        workspace: sonar-settings       
+      params:
+        - name: SONAR_HOST_URL
+          value: $(params.SONAR_HOST_URL)
+        - name: SONAR_PROJECT_KEY
+          value: $(params.SONAR_PROJECT_KEY)    
+      runAfter:
+        - 1-git-source-code
+
+    - name: 3-build-image
+      taskRef: 
+        name: buildah-netcore
+        kind: task
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+      params:
+        - name: TLSVERIFY
+          value: $(params.TLSVERIFY)       
+      resources:
+          inputs:
+          - name: IMAGE
+            resource: runtime-image
+      runAfter:
+        - 1-git-source-code
+
+    - name: 4-deploy-application
+      taskRef:
+        name: oc-process-deployment-template
+        kind: task  
+      workspaces:
+        - name: source
+          workspace: shared-workspace      
+      params:
+        - name: templateFileName
+          value: $(params.templateFileName)
+        - name: appName
+          value: $(params.appName)
+        - name: appGroup
+          value: $(params.appGroup)
+      resources:
+          inputs:          
+          - name: runtime-image
+            resource: runtime-image
+      runAfter:
+        - 3-build-image    
+
+    - name: 5-push-to-quay
+      taskRef:
+        name: push-image-to-quay
+      params:
+      - name: quay-io-account
+        value: $(params.quay-io-account)
+      - name: quay-io-repository
+        value: $(params.quay-io-repository)  
+      resources:
+          inputs:
+          - name: runtime-image
+            resource: runtime-image  
+      runAfter:
+      - 3-build-image    
+
+    
+        
+    

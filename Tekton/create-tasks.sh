@@ -1,0 +1,11 @@
+oc create --save-config=true -f PVC/task-cache-pvc1.yaml 
+oc create --save-config=true -f PVC/task-cache-pvc2.yaml 
+oc create --save-config=true -f Secrets/quay-auth-secret.yaml
+oc create --save-config=true -f Resources/Resource-App-GitSource.yaml 
+oc create --save-config=true -f Resources/Resource-Image-stream.yaml 
+oc create --save-config=true -f ClusterTasks/buildahNetCore.yaml 
+oc create --save-config=true -f ClusterTasks/git-clone.yaml 
+oc create --save-config=true -f Tasks/sonarqube-scanner.yaml 
+oc create --save-config=true -f Tasks/pushImageToQuay.yaml 
+oc create --save-config=true -f Tasks/ocProcessDeploymentTemplate.yaml 
+oc create --save-config=true -f Pipeline/pipeline.yaml

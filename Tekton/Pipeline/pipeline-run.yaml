@@ -1,0 +1,47 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: netcoreapp-pipelinerun
+
+spec:  
+  serviceAccountName: sa-refdoc-pipeline
+
+  pipelineRef:
+    name: refdoc-webapp-pipeline
+
+  workspaces:
+    - name: shared-workspace
+      persistentVolumeClaim:
+          claimName: refdoc-source-pvc1 
+    - name: sonar-settings
+      emptyDir: {}     
+
+  resources:
+    - name: git-url
+      resourceRef:
+        name: netcore-git-source
+    - name: runtime-image
+      resourceRef:
+        name: netcore-image-stream
+
+  params:
+    - name: git-revision
+      value: "master"
+    - name: TLSVERIFY
+      value: "false"
+    - name: SONAR_HOST_URL
+      value: 'http://172.25.173.172:9000'  
+    - name: SONAR_PROJECT_KEY
+      value: 'sonarqubecrc' 
+    - name: templateFileName
+      value: Tekton/Template/deploy-app-template.yaml
+    - name: appName
+      value: demo-refdoc-webapp
+    - name: appGroup
+      value: demo-refdoc-webapp  
+    - name: quay-io-account
+      value: "v6tempest1"
+    - name: quay-io-repository
+      value: "demo-refdoc"
+    - name: quay-io-image-tag-name
+      value: "latest"
