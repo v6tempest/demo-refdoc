@@ -5,6 +5,6 @@ metadata:
 spec:
   params:
     - name: url
-      value: image-registry.openshift-image-registry.svc:5000/demo-refdoc/demo-refdoc-webapp
+      value: image-registry.openshift-image-registry.svc:5000/ibm-cnt-dev/demo-refdoc-webapp
   type: image
  

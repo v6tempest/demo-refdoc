@@ -1,0 +1,2 @@
+oc adm policy add-scc-to-user privileged -z sonarqube-pipeline-sa
+oc adm policy add-role-to-user edit -z sonarqube-pipeline-sa

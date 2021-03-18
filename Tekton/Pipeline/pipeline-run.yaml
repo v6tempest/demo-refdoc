@@ -4,7 +4,7 @@ metadata:
   name: netcoreapp-pipelinerun
 
 spec:  
-  serviceAccountName: sa-refdoc-pipeline
+  serviceAccountName: mvcdemo-pipeline-sa
 
   pipelineRef:
     name: refdoc-webapp-pipeline
@@ -30,9 +30,9 @@ spec:
     - name: TLSVERIFY
       value: "false"
     - name: SONAR_HOST_URL
-      value: 'http://172.25.173.172:9000'  
+      value: 'http://172.25.162.139:9000'  
     - name: SONAR_PROJECT_KEY
-      value: 'sonarqubecrc' 
+      value: 'sonarqube-mvcdemo' 
     - name: templateFileName
       value: Tekton/Template/deploy-app-template.yaml
     - name: appName

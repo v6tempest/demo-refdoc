@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\demo-refdoc\\demo-refdoc.csproj",
+  "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\Build-from-deployTemplate\\demo-refdoc\\demo-refdoc.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "3.0",
@@ -14392,38 +14392,38 @@
   "RootNamespace": "demo_refdoc",
   "Documents": [
     {
-      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\demo-refdoc\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\demo-refdoc\\Views\\_ViewImports.cshtml",
-      "TargetPath": "Views\\_ViewImports.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\demo-refdoc\\Views\\Shared\\Error.cshtml",
-      "TargetPath": "Views\\Shared\\Error.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\demo-refdoc\\Views\\Shared\\_Layout.cshtml",
-      "TargetPath": "Views\\Shared\\_Layout.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\demo-refdoc\\Views\\_ViewStart.cshtml",
-      "TargetPath": "Views\\_ViewStart.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\demo-refdoc\\Views\\Home\\Privacy.cshtml",
+      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\Build-from-deployTemplate\\demo-refdoc\\Views\\Home\\Privacy.cshtml",
       "TargetPath": "Views\\Home\\Privacy.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\demo-refdoc\\Views\\Home\\Index.cshtml",
+      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\Build-from-deployTemplate\\demo-refdoc\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\Build-from-deployTemplate\\demo-refdoc\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\Build-from-deployTemplate\\demo-refdoc\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\Build-from-deployTemplate\\demo-refdoc\\Views\\Shared\\Error.cshtml",
+      "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\Build-from-deployTemplate\\demo-refdoc\\Views\\Shared\\_Layout.cshtml",
+      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\COde_Examples\\Tekton\\Microsoft_Tekton\\Build-from-deployTemplate\\demo-refdoc\\Views\\_ViewImports.cshtml",
+      "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
     }
   ],

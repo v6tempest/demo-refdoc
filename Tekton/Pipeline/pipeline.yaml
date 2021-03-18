@@ -44,7 +44,7 @@ spec:
       type: string      
 
   tasks:
-    - name: 1-git-source-code
+    - name: git-source-code
       taskRef:
         name: git-clone-netcore
         kind: Task
@@ -66,7 +66,7 @@ spec:
             resource: git-url 
 
 
-    - name: 2-code-analysis
+    - name: code-analysis
       taskRef:
        name: sonarqube-scanner
        kind: task
@@ -81,9 +81,24 @@ spec:
         - name: SONAR_PROJECT_KEY
           value: $(params.SONAR_PROJECT_KEY)    
       runAfter:
-        - 1-git-source-code
+        - git-source-code
+   
+    - name: report-code-analysis
+      taskRef:
+        name: report-code-analysis
+        kind: Task
+      runAfter:
+        - code-analysis
+      params:       
+        - name: SONAR_HOST_URL
+          value: $(params.SONAR_HOST_URL)
+        - name: SONAR_PROJECT_KEY
+          value: $(params.SONAR_PROJECT_KEY)
+      workspaces:
+        - name: source-dir
+          workspace: shared-workspace      
 
-    - name: 3-build-image
+    - name: build-image
       taskRef: 
         name: buildah-netcore
         kind: task
@@ -98,9 +113,9 @@ spec:
           - name: IMAGE
             resource: runtime-image
       runAfter:
-        - 1-git-source-code
+        - report-code-analysis
 
-    - name: 4-deploy-application
+    - name: deploy-application
       taskRef:
         name: oc-process-deployment-template
         kind: task  
@@ -119,9 +134,9 @@ spec:
           - name: runtime-image
             resource: runtime-image
       runAfter:
-        - 3-build-image    
+        - build-image    
 
-    - name: 5-push-to-quay
+    - name: push-to-quay
       taskRef:
         name: push-image-to-quay
       params:
@@ -134,7 +149,7 @@ spec:
           - name: runtime-image
             resource: runtime-image  
       runAfter:
-      - 3-build-image    
+      - build-image    
 
     
         
